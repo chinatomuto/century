@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var yearEntry: UITextField!
     @IBOutlet weak var showCentury: UILabel!
@@ -16,13 +16,19 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         showCentury.text = "??"
+        showCentury.endEditing(true)
+        yearEntry.delegate = self
+       // myTextField2.delegate = self
     }
-
+    
      
     
     @IBAction func calculateButton(_ sender: UIButton) {
+        let yearEntered = yearEntry.text
+        if yearEntered != "" {
+            showCentury.text = String(century())
+        }
         
-        showCentury.text = String(century())
     }
     
     func century() -> Int{
@@ -36,6 +42,13 @@ class ViewController: UIViewController {
         }
         
     }
+    
+    internal func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return true
+    }
+    
+    //self.view!.endEditing(true)
 
 }
 
